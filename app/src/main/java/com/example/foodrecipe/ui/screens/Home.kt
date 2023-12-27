@@ -56,7 +56,7 @@ fun HomeScreen(){
             Box(modifier = Modifier
                 .border(
                     width = 2.dp,
-                    color = Color.Blue,
+                    color = Color.Gray,
                     shape = RoundedCornerShape(15.dp)
                 )
                 .width(120.dp)
