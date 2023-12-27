@@ -54,14 +54,9 @@ fun HomeScreen(){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
             Box(modifier = Modifier
-                .border(
-                    width = 2.dp,
-                    color = Color.Gray,
-                    shape = RoundedCornerShape(15.dp)
-                )
-                .width(120.dp)
+                .background(color = Color.Gray, shape = RoundedCornerShape(10.dp))
+                .width(140.dp)
                 .height(160.dp)
-                .background(Color.Gray)
 
             )
             }
