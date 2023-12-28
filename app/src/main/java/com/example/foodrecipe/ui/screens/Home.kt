@@ -9,6 +9,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -32,12 +33,17 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import com.example.foodrecipe.api.ApiService
 import com.example.foodrecipe.api.ApiServiceBuilder.retrofit
+import com.example.foodrecipe.ui.theme.Hex1
+import com.example.foodrecipe.ui.theme.Hex2
+import com.example.foodrecipe.ui.theme.Hex3
 
 @Composable
 
 fun HomeScreen(){
     var responseData by remember { mutableStateOf<List<DataModel>?>(null) }
-LaunchedEffect(key1 = true ){
+    val rowColors = listOf(Hex1, Hex2, Hex3) //custom colors to dynamically apply to boxes
+
+    LaunchedEffect(key1 = true ){
     val response = retrofit.create(ApiService::class.java).fetchData()
     responseData = response.results
     Log.d("MyComposable", "Received response: $response")
@@ -71,21 +77,30 @@ LaunchedEffect(key1 = true ){
                     .height(190.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                LazyRow {
-                    items(responseData.orEmpty()) { dataModel ->
+                LazyRow  (
+
+                    horizontalArrangement = Arrangement.spacedBy(8.dp) //for giving space between rows
+                ) {
+
+                    itemsIndexed(responseData.orEmpty()) { index,dataModel ->
+                        val color = rowColors.getOrNull(index % rowColors.size) ?: Color.Gray
                         Box(
                             modifier = Modifier
-                                .background(color = Color.Gray, shape = RoundedCornerShape(10.dp))
+                                .background(color = color, shape = RoundedCornerShape(10.dp))
                                 .width(140.dp)
-                                .height(160.dp)
+                                .height(190.dp)
                                 .padding(8.dp) // Adjust padding as needed
                         ) {
-                            Text(text = dataModel.title, color = Color.White)
+
                             Image(
                                 painter = rememberAsyncImagePainter(dataModel.image),
                                 contentDescription = null,
-                                modifier = Modifier.size(128.dp)
+                                modifier = Modifier
+                                    .clip(CircleShape)
+
+                                    .size(120.dp)
                             )
+//                            Text(text = dataModel.title, color = Color.White)
                         }
                     }
                 }
