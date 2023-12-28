@@ -1,10 +1,13 @@
 package com.example.foodrecipe.ui.screens
 
+import DataModel
 import android.util.Log
 import android.widget.SearchView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -13,6 +16,10 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -27,8 +34,10 @@ import com.example.foodrecipe.api.ApiServiceBuilder.retrofit
 @Composable
 
 fun HomeScreen(){
+    var responseData by remember { mutableStateOf<List<DataModel>?>(null) }
 LaunchedEffect(key1 = true ){
     val response = retrofit.create(ApiService::class.java).fetchData()
+    responseData = response.results
     Log.d("MyComposable", "Received response: $response")
 }
     Column(
@@ -60,12 +69,19 @@ LaunchedEffect(key1 = true ){
                     .height(190.dp),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-            Box(modifier = Modifier
-                .background(color = Color.Gray, shape = RoundedCornerShape(10.dp))
-                .width(140.dp)
-                .height(160.dp)
-
-            )
+                LazyRow {
+                    items(responseData.orEmpty()) { dataModel ->
+                        Box(
+                            modifier = Modifier
+                                .background(color = Color.Gray, shape = RoundedCornerShape(10.dp))
+                                .width(140.dp)
+                                .height(160.dp)
+                                .padding(8.dp) // Adjust padding as needed
+                        ) {
+                            Text(text = dataModel.title, color = Color.White)
+                        }
+                    }
+                }
             }
         }
 
