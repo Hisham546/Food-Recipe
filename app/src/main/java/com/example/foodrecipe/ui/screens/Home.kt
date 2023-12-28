@@ -3,6 +3,7 @@ package com.example.foodrecipe.ui.screens
 import DataModel
 import android.util.Log
 import android.widget.SearchView
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.example.foodrecipe.api.ApiService
 import com.example.foodrecipe.api.ApiServiceBuilder.retrofit
 
@@ -79,6 +81,11 @@ LaunchedEffect(key1 = true ){
                                 .padding(8.dp) // Adjust padding as needed
                         ) {
                             Text(text = dataModel.title, color = Color.White)
+                            Image(
+                                painter = rememberAsyncImagePainter(dataModel.image),
+                                contentDescription = null,
+                                modifier = Modifier.size(128.dp)
+                            )
                         }
                     }
                 }
