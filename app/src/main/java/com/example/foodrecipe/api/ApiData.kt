@@ -1,4 +1,4 @@
-package com.example.foodrecipe.api
+
 
 data class DataModel(
     val id: Int,
