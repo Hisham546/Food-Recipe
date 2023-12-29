@@ -97,7 +97,7 @@ fun HomeScreen(navController: NavController){
                                 .padding(8.dp)
                                 .clickable {
                                     // Navigate to another screen when the Box is clicked
-                                    navController.navigate("RecipeDetails")
+                                    navController.navigate("RecipeDetails/$dataModel")
                                 }
                         ) {
 
