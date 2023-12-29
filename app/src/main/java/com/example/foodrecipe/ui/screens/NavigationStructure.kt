@@ -13,8 +13,9 @@ fun NavigationStructure(){
     NavHost(navController = navController, startDestination = Routes.HOME_SCREEN ){
 
         composable(Routes.HOME_SCREEN){
-            HomeScreen()
+            HomeScreen(navController)
         }
+        composable("recipeDetails") { RecipeDetails() }
     }
 }
 
