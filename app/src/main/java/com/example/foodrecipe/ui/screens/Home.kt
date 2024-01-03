@@ -1,6 +1,7 @@
 package com.example.foodrecipe.ui.screens
 
 import DataModel
+import MyViewModel
 import android.util.Log
 import android.widget.SearchView
 import androidx.compose.foundation.Image
@@ -31,11 +32,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.foodrecipe.api.ApiService
-import com.example.foodrecipe.api.ApiServiceBuilder.retrofit
+import kotlinx.coroutines.flow.collect
 import com.example.foodrecipe.ui.theme.Hex1
 import com.example.foodrecipe.ui.theme.Hex2
 import com.example.foodrecipe.ui.theme.Hex3
@@ -43,15 +44,28 @@ import com.example.foodrecipe.ui.theme.Hex3
 @Composable
 
 fun HomeScreen(navController: NavController){
-    var responseData by remember { mutableStateOf<List<DataModel>?>(null) }
+    val viewModel: MyViewModel = viewModel()
     val rowColors = listOf(Hex1, Hex2, Hex3) //custom colors to dynamically apply to boxes
 
 
-    LaunchedEffect(key1 = true ){
-    val response = retrofit.create(ApiService::class.java).fetchData()
-    responseData = response.results
-    Log.d("MyComposable", "Received response: $response")
-}
+// Local mutable state to hold the response data
+    var responseData by remember { mutableStateOf<List<DataModel>?>(null) }
+
+    LaunchedEffect(key1 = true) {
+
+
+        // Call the function in the ViewModel to fetch data
+        viewModel.fetchDataFromApi()
+
+        // Observe the LiveData from the ViewModel
+        viewModel.responseData.observeForever { data ->
+            // Update the local state when the LiveData changes
+            responseData = data
+        }
+    }
+
+    // Update the local state when the LiveData changes
+    responseData = viewModel.responseData.value
     Column(
         modifier = Modifier
 
@@ -97,6 +111,8 @@ fun HomeScreen(navController: NavController){
                                 .padding(8.dp)
                                 .clickable {
                                     // Navigate to another screen when the Box is clicked
+
+
                                     navController.navigate("RecipeDetails/$dataModel")
                                 }
                         ) {
