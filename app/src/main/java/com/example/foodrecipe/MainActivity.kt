@@ -14,8 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.foodrecipe.ui.screens.HomeScreen
-import com.example.foodrecipe.ui.screens.NavigationStructure
-import com.example.foodrecipe.ui.screens.Routes
+import com.example.foodrecipe.ui.screens.NavGraph
 import com.example.foodrecipe.ui.theme.FoodRecipeTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +22,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FoodRecipeTheme {
-              NavigationStructure()
+                val navController = rememberNavController()
+                NavGraph(navController = navController)
             }
         }
     }

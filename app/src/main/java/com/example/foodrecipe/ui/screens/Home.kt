@@ -113,7 +113,7 @@ fun HomeScreen(navController: NavController){
                                     // Navigate to another screen when the Box is clicked
 
 
-                                    navController.navigate("RecipeDetails/$dataModel")
+                                    navController.navigate(Screens.RecipeDetails.route)
                                 }
                         ) {
 
