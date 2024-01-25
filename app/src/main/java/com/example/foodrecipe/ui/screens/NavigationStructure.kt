@@ -47,7 +47,7 @@ fun NavGraph (navController: NavHostController){
             if (dataModel != null) {
                 RecipeDetails(navController, dataModel)
             } else {
-                // Handle the case where the com.example.foodrecipe.api.DataModel object is null
+
             }
         }
 

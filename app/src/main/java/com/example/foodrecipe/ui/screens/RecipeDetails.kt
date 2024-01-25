@@ -1,13 +1,18 @@
 package com.example.foodrecipe.ui.screens
 
+import androidx.compose.foundation.Image
 import com.example.foodrecipe.api.DataModel
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun RecipeDetails(navController: NavController, dataModel: DataModel?) {
@@ -15,13 +20,13 @@ fun RecipeDetails(navController: NavController, dataModel: DataModel?) {
         Column(modifier = Modifier) {
 
             if (dataModel != null) {
-//                Image(
-//                    painter = rememberAsyncImagePainter(dataModel.image),
-//                    contentDescription = null,
-//                    modifier = Modifier
-//                        .clip(RoundedCornerShape(30.dp))
-//                        .size(120.dp)
-//                )
+                Image(
+                    painter = rememberAsyncImagePainter(dataModel.image),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(30.dp))
+                        .size(120.dp)
+                )
 
                 if (dataModel.title != null) {
                     Text(
