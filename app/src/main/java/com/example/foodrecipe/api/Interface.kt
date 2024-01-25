@@ -1,11 +1,10 @@
 package com.example.foodrecipe.api
 
-import DataModel
 import retrofit2.http.GET
 
 //interface ApiService {
 //    @GET("complexSearch")
-//    suspend fun fetchData():  List<DataModel>
+//    suspend fun fetchData():  List<com.example.foodrecipe.api.DataModel>
 //}
 interface ApiService {
     @GET("complexSearch")

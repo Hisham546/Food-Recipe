@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.foodrecipe.api.ApiService
 import com.example.foodrecipe.api.ApiServiceBuilder
 import com.example.foodrecipe.api.ApiService.ApiResponse
+import com.example.foodrecipe.api.DataModel
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {

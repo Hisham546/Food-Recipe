@@ -1,7 +1,5 @@
 package com.example.foodrecipe.ui.screens
 
-import DataModel
-
 //
 //object Routes {
 //
@@ -13,9 +11,14 @@ import DataModel
 sealed class Screens(val route: String) {
     object Home: Screens("home_screen")
     object Welcome: Screens("welcome_screen")
-    object RecipeDetails :Screens("recipe_details/{title}"){
+//    object RecipeDetails :Screens("recipe_details/{title}"){
+//
+//        const val ARG_TITLE = "title"
+//    }
 
-        const val ARG_TITLE = "title"
+    object RecipeDetails :Screens("recipe_details/{dataModel}"){
+
+        const val ARG_DATAMODEl = "dataModel"
     }
 
 }

@@ -1,18 +1,14 @@
 package com.example.foodrecipe.ui.screens
 
-import DataModel
+import com.example.foodrecipe.api.DataModel
 import MyViewModel
-import android.util.Log
-import android.widget.SearchView
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 
 import androidx.compose.material.Text
@@ -29,17 +25,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
-import kotlinx.coroutines.flow.collect
 import com.example.foodrecipe.ui.theme.Hex1
 import com.example.foodrecipe.ui.theme.Hex2
 import com.example.foodrecipe.ui.theme.Hex3
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Composable
 
@@ -113,7 +108,11 @@ fun HomeScreen(navController: NavController){
                                     // Navigate to another screen when the Box is clicked
 
 
-                                    navController.navigate("${Screens.RecipeDetails.route}/${dataModel.title}") {
+//                                    navController.navigate("${Screens.RecipeDetails.route}/${dataModel.title}") {
+//                                        launchSingleTop = true
+//                                    }
+                                    navController.navigate("${Screens.RecipeDetails.route}/${Uri.encode(
+                                        Json.encodeToString(dataModel))}") {
                                         launchSingleTop = true
                                     }
 
@@ -129,15 +128,17 @@ fun HomeScreen(navController: NavController){
 
                                     .size(120.dp)
                             )
-                           Text(text = dataModel.title,
-                               color = Color.Black,
-                               fontSize = 13.sp,
-                               fontWeight = FontWeight.Medium,
-                               fontFamily = FontFamily.Serif,
-                               modifier = Modifier
-                                   .align(Alignment.BottomCenter)
+                            dataModel.title?.let {
+                                Text(text = it,
+                                    color = Color.Black,
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.Medium,
+                                    fontFamily = FontFamily.Serif,
+                                    modifier = Modifier
+                                        .align(Alignment.BottomCenter)
 
-                               )
+                                )
+                            }
                         }
                     }
                 }
