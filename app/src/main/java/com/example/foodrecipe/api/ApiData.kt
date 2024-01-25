@@ -2,7 +2,9 @@ package com.example.foodrecipe.api
 
 import android.os.Parcel
 import android.os.Parcelable
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class DataModel(
     val id: Int,
     val title: String?,
