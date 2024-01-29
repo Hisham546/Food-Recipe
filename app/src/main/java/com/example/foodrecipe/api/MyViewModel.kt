@@ -6,6 +6,7 @@ import com.example.foodrecipe.api.ApiService
 import com.example.foodrecipe.api.ApiServiceBuilder
 import com.example.foodrecipe.api.ApiService.ApiResponse
 import com.example.foodrecipe.api.DataModel
+import com.example.foodrecipe.api.RecipeDetailsModel
 import kotlinx.coroutines.launch
 
 class MyViewModel : ViewModel() {
@@ -37,7 +38,7 @@ class MyViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 // Make the API call using the ApiService interface
-                val apiResponse: ApiResponse = apiService.fetchRecipeDetails(id)
+                val apiResponse: ApiService.RecipeDetailsResponse = apiService.fetchRecipeDetails(id)
 
                 // Assuming results is not null in the ApiResponse
                 apiResponse.results?.let { results ->
